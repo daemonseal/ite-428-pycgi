@@ -1,1 +1,7 @@
 2020-02-07 09:23:09,"(1049, ""Unknown database 'webpython_northwind_mysql'"")"
+2020-02-07 10:33:07,"(1064, ""You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT `CustomerID`, `CompanyName`, `ContactName`, `ContactTitle`,\n        `Addr' at line 1"")"
+2020-02-07 10:33:52,"(1064, ""You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT CustomerID, CompanyName, ContactName, ContactTitle,\n        Address, City' at line 1"")"
+2020-02-07 10:43:09,"(1064, ""You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT CustomerID, CompanyName, ContactName, ContactTitle,\n        Address, City' at line 1"")"
+2020-02-07 10:45:52,"(1064, ""You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT CustomerID, CompanyName, ContactName, ContactTitle,\n        Address, City' at line 1"")"
+2020-02-07 10:46:32,"(1064, ""You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT CustomerID, CompanyName, ContactName, ContactTitle,\n        Address, City' at line 1"")"
+2020-02-07 10:51:20,"tuple indices must be integers or slices, not str"

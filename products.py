@@ -95,7 +95,7 @@ def renderProductForm():
     """
     result = executeSQL(sql)
     print("""
-        <form action="example_code.py" method="post">
+        <form action="products.py" method="post">
             <table>
                 <tr>
                     <td>Product Name</td>
@@ -181,7 +181,7 @@ def renderUpdateForm():
     result = executeSQL(sql)
     print("""
         <h1>Update Products</h1>
-        <form action="example_code.py" method="post">
+        <form action="products.py" method="post">
             <table>
                 <tr>
                     <td>Product Name</td>
@@ -287,8 +287,8 @@ def renderProductTable():
                     <td>{2}</td>
                     <td>{3}</td>
                     <td align="right">{4:.2f}</td>
-                    <td><a href="example_code.py?delid={5}" onclick="return delProduct(this)" pname="{1}"><img src="images/Delete.jpg" width="20px"></a></td>
-                    <td><a href="example_code.py?updid={5}"><img src="images/Update.jpg" width="20px"></a></td>
+                    <td><a href="products.py?delid={5}" onclick="return delProduct(this)" pname="{1}"><img src="images/Delete.jpg" width="20px"></a></td>
+                    <td><a href="products.py?updid={5}"><img src="images/Update.jpg" width="20px"></a></td>
                 </tr>
             """.format(i + 1, row[1], row[2], row[3], row[4], row[0]))
         print("</table>")
