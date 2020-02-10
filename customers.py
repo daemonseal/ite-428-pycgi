@@ -28,7 +28,7 @@ def renderHeader():
 
 def renderBody():
     print("<body>")
-    if string(form.getvalue("updid"), "NULL") != "NULL":
+    if string(form.getvalue("updid")) != "None":
         renderUpdateForm()
     else:
         renderCustomerForm()
@@ -152,8 +152,8 @@ def renderCustomerForm():
 
 
 def renderUpdateForm():
-    customer_id = string(form.getvalue("updid"), "NULL")
-    if customer_id == "NULL":
+    customer_id = string(form.getvalue("updid"))
+    if customer_id == "":
         return
     sql = """
         SELECT CustomerID, CompanyName, ContactName, ContactTitle,
@@ -165,52 +165,57 @@ def renderUpdateForm():
     if result[0] == 0:
         return
 
-    result = executeSQL(sql)[1]
+    result = executeSQL(sql)[1].fetchone()
 
     print(f"""
         <form action="customers.py" method="post">
             <table>
                 <tr>
                     <td>Customer ID</td>
-                    <td><input type="text" name="customer_id">{result['CustomerID']}</td>
+                    <td><input type="text" name="customer_id" value="{result['CustomerID']}"></td>
                 </tr>
                 <tr>
                     <td>Company Name</td>
-                    <td><input type="text" name="company_name">{result['CompanyName']}</td>
+                    <td><input type="text" name="company_name" value="{result['CompanyName']}"></td>
                 </tr>
                 <tr>
                     <td>Contact Name</td>
-                    <td><input type="test" name="contact_name">{result['ContactName']}</td>
+                    <td><input type="test" name="contact_name" value="{result['ContactName']}"></td>
                 </tr>
                 <tr>
                     <td>Contact Name</td>
-                    <td><input type="test" name="contact_title">{result['ContactTitle']}</td>
+                    <td><input type="test" name="contact_title" value="{result['ContactTitle']}"></td>
                 </tr>
                 <tr>
                     <td>Address</td>
-                    <td><input type="text" name="address">{result['ContactTitle']}</td>
+                    <td><input type="text" name="address" value="{result['Address']}"></td>
                 </tr>
                 <tr>
                     <td>City</td>
-                    <td><input type="text" name="city">{result['Address']}</td>
+                    <td><input type="text" name="city" value="{result['City']}"></td>
                 </tr>
                 <tr>
                     <td>Region</td>
-                    <td><input type="text" name="region">{result['City']}</td>
+                    <td><input type="text" name="region" value="{result['Region']}"></td>
                 </tr>
                 <tr>
                     <td>Postal Code</td>
-                    <td><input type="text" name="postal_code">{result['Region']}</td>
+                    <td><input type="text" name="postal_code" value="{result['PostalCode']}"></td>
                 </tr>
     """)
     print(f"""
                 <tr>
                     <td>Country</td>
                     <td>
-                        <select name="country" value="{result['Country']}">
+                        <select name="country">
     """)
+
     for row in readCountryData():
-        print("""<option value="{0}">{0}</option>""".format(row))
+        is_default = ""
+        if row.rstrip('\r\n') == result['Country']:
+            is_default = "selected"
+        print("""<option value="{0}" {1}>{0}</option>""".format(row, is_default))
+
     print("""
                         </select>
                     </td>
@@ -219,11 +224,11 @@ def renderUpdateForm():
     print(f"""
                 <tr>
                     <td>Phone</td>
-                    <td><input type="tel" name="phone">{result['Phone']}</td>
+                    <td><input type="tel" name="phone" value="{result['Phone']}"></td>
                 </tr>
                 <tr>
                     <td>Fax</td>
-                    <td><input type="tel" name="fax">{result['Fax']}</td>
+                    <td><input type="tel" name="fax" value="{result['Fax']}"></td>
                 </tr>
                 <tr>
                      <td>
@@ -297,14 +302,14 @@ def insertCustomers():
     if not reqData.issubset(form.keys()):
         return saved
     customer_id = string(form.getvalue("customer_id"))  # 0
-    company_name = string(form.getvalue("company_name"), "NULL")  # 1
-    contact_name = string(form.getvalue("contact_name"), "NULL")  # 2
-    contact_title = string(form.getvalue("contact_title"), "NULL")  # 3
-    address = string(form.getvalue("address"), "NULL")  # 4
-    city = string(form.getvalue("city"), "NULL")  # 5
-    region = string(form.getvalue("region"), "NULL")  # 6
-    postal_code = string(form.getvalue("postal_code"), "NULL")  # 7
-    country = string(form.getvalue("country"), "NULL")  # 8
+    company_name = string(form.getvalue("company_name"))  # 1
+    contact_name = string(form.getvalue("contact_name"))  # 2
+    contact_title = string(form.getvalue("contact_title"))  # 3
+    address = string(form.getvalue("address"))  # 4
+    city = string(form.getvalue("city"))  # 5
+    region = string(form.getvalue("region"))  # 6
+    postal_code = string(form.getvalue("postal_code"))  # 7
+    country = string(form.getvalue("country"))  # 8
     phone = string(form.getvalue("phone"))  # 9
     fax = string(form.getvalue("fax"))  # 10
     sql = """
@@ -328,23 +333,25 @@ def updateCustomers():
                "address", "city", "region", "postal_code", "country", "phone", "fax"}
     if not reqData.issubset(form.keys()):
         return saved
-    customer_id = string(form.getvalue("updid"), "NULL")
-    if customer_id == "NULL":
+    customer_id = string(form.getvalue("updid"))
+    if customer_id == "":
         return saved
-    company_name = string(form.getvalue("company_name"), "NULL")  # 1
-    contact_name = string(form.getvalue("contact_name"), "NULL")  # 2
-    contact_title = string(form.getvalue("contact_title"), "NULL")  # 3
-    address = string(form.getvalue("address"), "NULL")  # 4
-    city = string(form.getvalue("city"), "NULL")  # 5
-    region = string(form.getvalue("region"), "NULL")  # 6
-    postal_code = string(form.getvalue("postal_code"), "NULL")  # 7
-    country = string(form.getvalue("country"), "NULL")  # 8
+    customer_id = string(form.getvalue("customer_id"))  # 0
+    company_name = string(form.getvalue("company_name"))  # 1
+    contact_name = string(form.getvalue("contact_name"))  # 2
+    contact_title = string(form.getvalue("contact_title"))  # 3
+    address = string(form.getvalue("address"))  # 4
+    city = string(form.getvalue("city"))  # 5
+    region = string(form.getvalue("region"))  # 6
+    postal_code = string(form.getvalue("postal_code"))  # 7
+    country = string(form.getvalue("country"))  # 8
     phone = string(form.getvalue("phone"))  # 9
     fax = string(form.getvalue("fax"))  # 10
     sql = """
         UPDATE customers 
-        SET CustomerID="{0}", CompanyName={1}, ContactName={2}, 
-        ContactTitle="{3}", Address={4}, City={5}, Region={6}, PostalCode={7}, Country={8}, Phone={9}, Fax={10} 
+        SET CustomerID="{0}", CompanyName="{1}", ContactName="{2}", 
+        ContactTitle="{3}", Address="{4}", City="{5}", 
+        Region="{6}", PostalCode="{7}", Country="{8}", Phone="{9}", Fax="{10}"
         WHERE CustomerID = "{0}"
     """.format(customer_id, company_name, contact_name, contact_title, address, city, region, postal_code, country,
                phone, fax)

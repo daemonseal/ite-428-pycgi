@@ -67,3 +67,7 @@
 2020-02-11 00:56:13,tuple index out of range
 2020-02-11 00:56:17,tuple index out of range
 2020-02-11 00:56:48,tuple index out of range
+2020-02-11 01:05:52,'DictCursor' object is not subscriptable
+2020-02-11 01:07:01,"list indices must be integers or slices, not str"
+2020-02-11 01:18:08,"(1064, 'You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near \'pre et fils, ContactName=Frdrique Citeaux, \n        ContactTitle=""Marketing Mana\' at line 2')"
+2020-02-11 01:20:59,Single '}' encountered in format string
