@@ -5,3 +5,65 @@
 2020-02-07 10:45:52,"(1064, ""You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT CustomerID, CompanyName, ContactName, ContactTitle,\n        Address, City' at line 1"")"
 2020-02-07 10:46:32,"(1064, ""You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT CustomerID, CompanyName, ContactName, ContactTitle,\n        Address, City' at line 1"")"
 2020-02-07 10:51:20,"tuple indices must be integers or slices, not str"
+2020-02-10 21:50:51,"(1049, ""Unknown database 'northwind'"")"
+2020-02-10 21:56:55,"(1146, ""Table 'northwind.categories' doesn't exist"")"
+2020-02-10 21:57:07,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:02:10,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:02:11,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:02:41,"(1146, ""Table 'northwind.categories' doesn't exist"")"
+2020-02-10 22:02:56,"(1146, ""Table 'northwind.categories' doesn't exist"")"
+2020-02-10 22:03:04,"(1146, ""Table 'northwind.categories' doesn't exist"")"
+2020-02-10 22:03:06,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:06:23,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:06:25,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:06:26,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:07:14,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:09:17,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:09:17,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:09:18,Unknown format code 'f' for object of type 'str'
+2020-02-10 22:11:43,"(1146, ""Table 'northwind.categories' doesn't exist"")"
+2020-02-10 22:38:50,"(1146, ""Table 'northwind.categories' doesn't exist"")"
+2020-02-10 23:25:03,"(1054, ""Unknown column 'COMMI' in 'where clause'"")"
+2020-02-10 23:25:05,"(1054, ""Unknown column 'COMMI' in 'where clause'"")"
+2020-02-10 23:25:07,"(1054, ""Unknown column 'ALFKI' in 'where clause'"")"
+2020-02-10 23:36:21,0
+2020-02-10 23:47:12,0
+2020-02-10 23:53:14,"tuple indices must be integers or slices, not str"
+2020-02-10 23:53:18,"tuple indices must be integers or slices, not str"
+2020-02-10 23:57:42,tuple index out of range
+2020-02-10 23:58:44,tuple index out of range
+2020-02-10 23:58:45,tuple index out of range
+2020-02-10 23:58:48,tuple index out of range
+2020-02-10 23:58:55,tuple index out of range
+2020-02-11 00:00:28,tuple index out of range
+2020-02-11 00:02:20,tuple index out of range
+2020-02-11 00:02:30,tuple index out of range
+2020-02-11 00:02:34,tuple index out of range
+2020-02-11 00:02:40,tuple index out of range
+2020-02-11 00:02:44,tuple index out of range
+2020-02-11 00:04:25,tuple index out of range
+2020-02-11 00:04:29,tuple index out of range
+2020-02-11 00:05:21,tuple index out of range
+2020-02-11 00:05:25,tuple index out of range
+2020-02-11 00:05:27,tuple index out of range
+2020-02-11 00:07:13,tuple index out of range
+2020-02-11 00:07:16,tuple index out of range
+2020-02-11 00:09:03,tuple index out of range
+2020-02-11 00:09:15,tuple index out of range
+2020-02-11 00:10:08,"tuple indices must be integers or slices, not str"
+2020-02-11 00:16:38,"tuple indices must be integers or slices, not str"
+2020-02-11 00:22:06,"tuple indices must be integers or slices, not str"
+2020-02-11 00:27:00,"tuple indices must be integers or slices, not str"
+2020-02-11 00:27:04,"tuple indices must be integers or slices, not str"
+2020-02-11 00:30:05,"tuple indices must be integers or slices, not str"
+2020-02-11 00:36:40,0
+2020-02-11 00:36:44,0
+2020-02-11 00:37:09,tuple index out of range
+2020-02-11 00:37:13,"tuple indices must be integers or slices, not str"
+2020-02-11 00:38:19,tuple index out of range
+2020-02-11 00:46:20,tuple index out of range
+2020-02-11 00:53:16,'Cursor' object is not subscriptable
+2020-02-11 00:53:59,tuple index out of range
+2020-02-11 00:56:13,tuple index out of range
+2020-02-11 00:56:17,tuple index out of range
+2020-02-11 00:56:48,tuple index out of range

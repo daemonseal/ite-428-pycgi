@@ -1,4 +1,4 @@
-#!/xampp/htdocs/mysql/py38/Scripts/python
+#!\xampp\htdocs\ite-428-pycgi\venv\Scripts\python
 
 import pymysql
 import cgi
@@ -28,7 +28,7 @@ def renderHeader():
 
 def renderBody():
     print("<body>")
-    if (integer(form.getvalue("updid")) != 0):
+    if str(form.getvalue("updid")) != 0:
         renderUpdateForm()
     else:
         renderProductForm()
@@ -45,14 +45,14 @@ def renderJS():
     # Java Script confirm before update / delete
     print("""
         <script>
-            function delProduct(el){
-                pname = el.attributes["pname"].value
-                if(!confirm("Do you really want to delete " + pname + " ?"))
+            function delcustomer(el){
+                company_name = el.attributes["company_name"].value
+                if(!confirm("do you really want to delete " + company_name + " ?"))
                     return false
             }
-            function updateProduct(el){
-                pname = el.attributes["pname"].value
-                if(!confirm("Do you want to update " + pname + " ?"))
+            function updatecustomer(el){
+                company_name = el.attributes["company_name"].value
+                if(!confirm("do you want to update " + company_name + " ?"))
                     return false
             }
         </script>
@@ -163,7 +163,7 @@ def renderProductForm():
 
 def renderUpdateForm():
     pid = integer(form.getvalue("updid"), 0)
-    if (pid == 0):
+    if pid == 0:
         return
     sql = """
         SELECT productid,productname,supplierid,categoryid,quantityperunit,unitprice,unitsinstock,unitsonorder,reorderlevel,discontinued
@@ -171,7 +171,7 @@ def renderUpdateForm():
         WHERE productid = {0}
     """.format(pid)
     result = executeSQL(sql)
-    if (result[0] == 0):
+    if result[0] == 0:
         return
     product = result[1].fetchone()
     sql = """
@@ -194,7 +194,7 @@ def renderUpdateForm():
     """.format(product[1]))
     for row in result[1]:
         isDefault = ""
-        if (row[0] == product[2]):
+        if row[0] == product[2]:
             isDefault = "selected"
         print("""<option value="{0}" {2}>{1}</option>""".format(row[0], row[1], isDefault))
     print("""
@@ -213,11 +213,11 @@ def renderUpdateForm():
     result = executeSQL(sql)
     for row in result[1]:
         isDefault = ""
-        if (row[0] == product[3]):
+        if row[0] == product[3]:
             isDefault = "selected"
         print("""<option value="{0}" {2}>{1}</option>""".format(row[0], row[1], isDefault))
     checked = ""
-    if (product[9] == "1"):
+    if product[9] == "1":
         checked = "checked"
     print("""
                         </select>
@@ -266,7 +266,7 @@ def renderProductTable():
     """
     result = executeSQL(sql)
     print("Result: {0} record(s)".format(result[0]))
-    if (result[0] > 0):
+    if result[0] > 0:
         print("""
             <table id="product-table" cellspacing="0" cellpadding="0">
                 <tr>
@@ -297,10 +297,10 @@ def renderProductTable():
 # CUD Product
 def insertProduct():
     saved = False
-    if (string(form.getvalue("status")) != "create"):
+    if string(form.getvalue("status")) != "create":
         return saved
     reqData = {"pdn", "spe", "ctg", "qpu", "unp", "stk", "ood", "rod"}
-    if (not reqData.issubset(form.keys())):
+    if not reqData.issubset(form.keys()):
         return saved
     pdn = string(form.getvalue("pdn"))
     spe = integer(form.getvalue("spe"), "NULL")
@@ -311,7 +311,7 @@ def insertProduct():
     ood = integer(form.getvalue("ood"), 0)
     rod = integer(form.getvalue("rod"), 0)
     dct = string(form.getvalue("dct"), "off")
-    if (dct == "on"):
+    if dct == "on":
         dct = 1
     else:
         dct = 0
@@ -320,7 +320,7 @@ def insertProduct():
         VALUES ("{0}",{1},{2},"{3}",{4},{5},{6},{7},{8})
     """.format(pdn, spe, ctg, qpu, unp, stk, ood, rod, dct)
     result = executeInsertSQL(sql)
-    if (result[0] == 1):
+    if result[0] == 1:
         saved = True
         actionLog("I", result[1])
     return saved
@@ -328,13 +328,13 @@ def insertProduct():
 
 def updateProduct():
     saved = False
-    if (string(form.getvalue("status")) != "update"):
+    if string(form.getvalue("status")) != "update":
         return saved
     reqData = {"updid", "pdn", "spe", "ctg", "qpu", "unp", "stk", "ood", "rod"}
-    if (not reqData.issubset(form.keys())):
+    if not reqData.issubset(form.keys()):
         return saved
     pid = integer(form.getvalue("updid"))
-    if (pid == 0):
+    if pid == 0:
         return saved
     pdn = string(form.getvalue("pdn"))
     spe = integer(form.getvalue("spe"), "NULL")
@@ -345,7 +345,7 @@ def updateProduct():
     ood = integer(form.getvalue("ood"), 0)
     rod = integer(form.getvalue("rod"), 0)
     dct = string(form.getvalue("dct"), "off")
-    if (dct == "on"):
+    if dct == "on":
         dct = 1
     else:
         dct = 0
@@ -355,7 +355,7 @@ def updateProduct():
         WHERE productid = {9}
     """.format(pdn, spe, ctg, qpu, unp, stk, ood, rod, dct, pid)
     result = executeNonQuerySQL(sql)
-    if (result == 1):
+    if result == 1:
         saved = True
         actionLog("U", pid)
     return saved
@@ -364,13 +364,13 @@ def updateProduct():
 def deleteProduct():
     deleted = False
     delid = integer(form.getvalue("delid"))
-    if (delid != 0):
+    if delid != 0:
         sql = """
             DELETE FROM products
             WHERE productid = {0}
         """.format(form.getvalue("delid"))
         result = executeNonQuerySQL(sql)
-        if (result == 1):
+        if result == 1:
             deleted = True
             actionLog("D", delid)
     return deleted
@@ -379,13 +379,13 @@ def deleteProduct():
 # Database
 def connectDB():
     global conn
-    if (conn is None):
+    if conn is None:
         conn = pymysql.connect(host="localhost", port=3306, user="root", passwd="", db=DatabaseName)
     return conn
 
 
 def closeDBConnect():
-    if (conn != None):
+    if conn is not None:
         conn.close()
 
 
@@ -394,7 +394,7 @@ def executeSQL(sql):
     cur = conn.cursor()
     count = cur.execute(sql)
     cur.close()
-    return (count, cur)
+    return count, cur
 
 
 def executeNonQuerySQL(sql):
@@ -417,13 +417,13 @@ def executeInsertSQL(sql):
     insertedID = cur.fetchone()[0]
     conn.commit()
     cur.close()
-    return (count, insertedID)
+    return count, insertedID
 
 
 # Logging
 def actionLog(action, target):
     existAction = {"I", "U", "D"}
-    if (action not in existAction):
+    if action not in existAction:
         return
     time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     row = [action, time, target]
@@ -479,7 +479,7 @@ if __name__ == "__main__":
         renderHTML()
     except Exception as e:
         errorLog(e)
-        if (debugging):
+        if debugging:
             renderError(e)
         else:
             renderError("Contact admin for more detail.")
