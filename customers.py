@@ -127,7 +127,7 @@ def renderCustomerForm():
                         <select name="country">
     """)
     for row in readCountryData():
-        print("""<option value="{0}">{0}</option>""".format(row))
+        print("""<option value="{0}" selected>{0}</option>""".format(row.rstrip("\n\r")))
     print("""
                         </select>
                     </td>
@@ -153,7 +153,7 @@ def renderCustomerForm():
 
 def renderUpdateForm():
     customer_id = string(form.getvalue("updid"))
-    if customer_id == "":
+    if customer_id == "None":
         return
     sql = """
         SELECT CustomerID, CompanyName, ContactName, ContactTitle,
@@ -255,7 +255,7 @@ def renderCustomerTable():
         print("""
             <table id="customer-table" cellspacing="0" cellpadding="5">
                 <tr>
-                    <th width="10%">CustomersID</th>
+                    <th width="10%">CustomerID</th>
                     <th>CompanyName</th>
                     <th>ContactName</th>
                     <th>ContactTitle</th>
@@ -297,8 +297,7 @@ def insertCustomers():
     saved = False
     if string(form.getvalue("status")) != "create":
         return saved
-    reqData = {"customer_id", "company_name", "contact_name", "contact_title",
-               "address", "city", "region", "postal_code", "country", "phone", "fax"}
+    reqData = {"customer_id", "company_name"}
     if not reqData.issubset(form.keys()):
         return saved
     customer_id = string(form.getvalue("customer_id"))  # 0
@@ -309,7 +308,7 @@ def insertCustomers():
     city = string(form.getvalue("city"))  # 5
     region = string(form.getvalue("region"))  # 6
     postal_code = string(form.getvalue("postal_code"))  # 7
-    country = string(form.getvalue("country"))  # 8
+    country = string(form.getvalue("country")).rstrip("\n\r")  # 8
     phone = string(form.getvalue("phone"))  # 9
     fax = string(form.getvalue("fax"))  # 10
     sql = """
@@ -329,12 +328,11 @@ def updateCustomers():
     saved = False
     if string(form.getvalue("status")) != "update":
         return saved
-    reqData = {"customer_id", "company_name", "contact_name", "contact_title",
-               "address", "city", "region", "postal_code", "country", "phone", "fax"}
+    reqData = {"customer_id", "company_name"}
     if not reqData.issubset(form.keys()):
         return saved
     customer_id = string(form.getvalue("updid"))
-    if customer_id == "":
+    if customer_id == "None":
         return saved
     customer_id = string(form.getvalue("customer_id"))  # 0
     company_name = string(form.getvalue("company_name"))  # 1
@@ -344,7 +342,7 @@ def updateCustomers():
     city = string(form.getvalue("city"))  # 5
     region = string(form.getvalue("region"))  # 6
     postal_code = string(form.getvalue("postal_code"))  # 7
-    country = string(form.getvalue("country"))  # 8
+    country = string(form.getvalue("country")).rstrip("\n\r")  # 8
     phone = string(form.getvalue("phone"))  # 9
     fax = string(form.getvalue("fax"))  # 10
     sql = """
@@ -418,14 +416,14 @@ def executeInsertSQL(sql):
     conn = connectDB()
     cur = conn.cursor()
     count = cur.execute(sql)
-    sqlGetInsertedID = """
-        SELECT LAST_INSERT_ID()
-    """
-    cur.execute(sqlGetInsertedID)
-    insertedID = cur.fetchone()[0]
+    # sqlGetInsertedID = """
+    #     SELECT LAST_INSERT_ID()
+    # """
+    # cur.execute(sqlGetInsertedID)
+    # insertedID = cur.fetchone()['CustomerID']
     conn.commit()
     cur.close()
-    return count, insertedID
+    return count, 'Success'
 
 
 # Logging
